@@ -5,6 +5,7 @@ defmodule Satanut.Application do
 
   use Application
   alias Alchemy.Client
+  use Alchemy.Cogs
 
   def load_module do
     use Satanut.Commands
@@ -16,6 +17,7 @@ defmodule Satanut.Application do
     children = []
 
     Client.start(Application.get_env(:satanut, :token))
+    Cogs.set_prefix("$")
     load_module()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
