@@ -6,7 +6,7 @@ defmodule Satanut.Events do
 
   Events.on_message(:define_reply)
 
-  def reply("sardine", message) do
+  def reply(:sardine, message) do
     my_embed = %Embed{}
             |> Embed.title("Sardina pilchardus")
             |> Embed.color(0xff9300)
@@ -14,7 +14,7 @@ defmodule Satanut.Events do
     Cogs.say("", embed: my_embed)
   end
 
-  def reply("communist", message) do
+  def reply(communist, message) do
     gifs = [
       "https://tenor.com/8pZh.gif",
       "https://tenor.com/3JsX.gif",
@@ -45,8 +45,8 @@ defmodule Satanut.Events do
     communist = gen_matchers.(String.downcase(message.content), communist_matches)
 
     eval = [
-      {sardine, fn -> reply("sardine", message) end},
-      {communist, fn -> reply("communist", message) end}
+      {sardine, fn -> reply(:sardine, message) end},
+      {communist, fn -> reply(:communist, message) end}
     ]
 
     case message.author.bot do
