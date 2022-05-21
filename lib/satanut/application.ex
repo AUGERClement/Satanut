@@ -8,6 +8,7 @@ defmodule Satanut.Application do
 
   def load_module do
     use Satanut.Commands
+    use Satanut.Events
   end
 
   @impl true
