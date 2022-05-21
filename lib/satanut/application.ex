@@ -18,7 +18,7 @@ defmodule Satanut.Application do
 
     Client.start(Application.get_env(:satanut, :token))
     Cogs.set_prefix("$")
-    Client.send_message("885253284649140235", "zebi")
+    Client.send_message("885253284649140235", "le dévelopement durable est d'après le rapport de bruntland un type de dévelopement blablabla")
     load_module()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
