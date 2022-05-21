@@ -1,12 +1,17 @@
 defmodule Satanut.Events do
   use Alchemy.Events
   alias Alchemy.Client
+  alias Alchemy.Embed
   use Alchemy.Cogs
 
   Events.on_message(:define_reply)
 
   def reply("sardine", message) do
-    Cogs.say("mmmmmmmh sardine mhhhm")
+    my_embed = %Embed{}
+            |> Embed.title("Sardina pilchardus")
+            |> Embed.color(0xff9300)
+            |> Embed.description("PlaceHolder")
+    Cogs.say("", embed: my_embed)
   end
 
   def reply("communist", message) do
