@@ -4,12 +4,18 @@ defmodule Satanut.Application do
   @moduledoc false
 
   use Application
+  alias Alchemy.Client
 
+  def load_module do
+    use Satanut.Commands
+  end
+
+  @impl true
   def start(_type, _args) do
-    children = [
-      # Starts a worker by calling: Satanut.Worker.start_link(arg)
-      # {Satanut.Worker, arg}
-    ]
+    children = []
+
+    Client.start(Application.get_env(:satanut, :token))
+    load_module()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
