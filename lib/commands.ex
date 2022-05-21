@@ -3,7 +3,7 @@ defmodule Satanut.Commands do
   alias Alchemy.Embed
 
   Cogs.def sardine do
-    Cogs.say(sardine)
+    Cogs.say("Sardine")
   end
 
   Cogs.def test do

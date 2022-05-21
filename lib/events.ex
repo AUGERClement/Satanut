@@ -15,7 +15,16 @@ defmodule Satanut.Events do
   end
 
   def reply("communist", message) do
-    Cogs.say("https://tenor.com/view/ours-communism-bugs-bunny-communist-gif-24069854")
+    gifs = [
+      "https://tenor.com/8pZh.gif",
+      "https://tenor.com/3JsX.gif",
+      "https://tenor.com/bG0m6.gif",
+      "https://tenor.com/bAqJF.gif",
+      "https://tenor.com/0PK5.gif",
+      "https://tenor.com/beJMZ.gif"
+    ]
+
+    Cogs.say(Enum.random(gifs))
   end
 
 
@@ -28,8 +37,13 @@ defmodule Satanut.Events do
 
   def define_reply(message) do
     gen_matcher = fn (str, keyword) -> str =~ keyword end
+    gen_matchers = fn (str, keywords) -> true in Enum.map(keywords, &gen_matcher.(str, &1)) end
+
+    communist_matches = ["rouge", "notre", "nous", "nos", "ensembles", "communisme"]
+
     sardine = gen_matcher.(String.downcase(message.content), "sardine")
-    communist = gen_matcher.(String.downcase(message.content), "rouge")
+    communist = gen_matchers.(String.downcase(message.content), communist_matches)
+
     eval = [
       {sardine, fn -> reply("sardine", message) end},
       {communist, fn -> reply("communist", message) end}
