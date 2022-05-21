@@ -4,4 +4,8 @@ defmodule Satanut.Commands do
   Cogs.def poisson do
     Cogs.say("Sardine")
   end
+
+  Cogs.def test do
+    Cogs.say("Test")
+  end
 end

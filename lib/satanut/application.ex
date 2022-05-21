@@ -18,6 +18,7 @@ defmodule Satanut.Application do
 
     Client.start(Application.get_env(:satanut, :token))
     Cogs.set_prefix("$")
+    Client.send_message("885253284649140235", "zebi")
     load_module()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
