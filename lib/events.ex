@@ -40,8 +40,9 @@ defmodule Satanut.Events do
     gen_matchers = fn (str, keywords) -> true in Enum.map(keywords, &gen_matcher.(str, &1)) end
 
     communist_matches = ["rouge", "notre", "nous", "nos", "ensembles", "communisme", "marx", "patrie"]
+    sardine_matches = ["sardine", "poisson", "mer", "vitamines"]
 
-    sardine = gen_matcher.(String.downcase(message.content), "sardine")
+    sardine = gen_matchers.(String.downcase(message.content), sardine_matches)
     communist = gen_matchers.(String.downcase(message.content), communist_matches)
 
     eval = [
@@ -53,10 +54,6 @@ defmodule Satanut.Events do
       false -> Enum.find(eval, &callback(&1))
       _ -> nil
     end
-
-    # contain Sardine => reply("sardine")
-    # contain a communist_keyword => reply("rouge")
   end
 
-  # Hard coder une liste de gif communists et en envoyer un au pif à chaque Comu_keyword
 end
