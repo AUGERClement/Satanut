@@ -39,7 +39,7 @@ defmodule Satanut.Events do
     gen_matcher = fn (str, keyword) -> str =~ keyword end
     gen_matchers = fn (str, keywords) -> true in Enum.map(keywords, &gen_matcher.(str, &1)) end
 
-    communist_matches = ["rouge", "notre", "nous", "nos", "ensembles", "communisme"]
+    communist_matches = ["rouge", "notre", "nous", "nos", "ensembles", "communisme", "marx", "patrie"]
 
     sardine = gen_matcher.(String.downcase(message.content), "sardine")
     communist = gen_matchers.(String.downcase(message.content), communist_matches)
