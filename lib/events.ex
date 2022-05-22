@@ -1,20 +1,16 @@
 defmodule Satanut.Events do
   use Alchemy.Events
-  alias Alchemy.Client
   alias Alchemy.Embed
   use Alchemy.Cogs
 
   Events.on_message(:define_reply)
 
   def reply(:sardine, message) do
-    my_embed = %Embed{}
-            |> Embed.title("Sardina pilchardus")
-            |> Embed.color(0xff9300)
-            |> Embed.description("PlaceHolder")
-    Cogs.say("", embed: my_embed)
+    sardine_embed = Embed.from_assets("sardine", title: "Sardina pilchardus")
+    Cogs.say("", embed: sardine_embed)
   end
 
-  def reply(communist, message) do
+  def reply(:communist, message) do
     gifs = [
       "https://tenor.com/8pZh.gif",
       "https://tenor.com/3JsX.gif",
@@ -39,8 +35,8 @@ defmodule Satanut.Events do
     gen_matcher = fn (str, keyword) -> str =~ keyword end
     gen_matchers = fn (str, keywords) -> true in Enum.map(keywords, &gen_matcher.(str, &1)) end
 
-    communist_matches = ["rouge", "notre", "nous", "nos", "ensembles", "communisme", "marx", "patrie"]
-    sardine_matches = ["sardine", "poisson", "mer", "vitamines"]
+    communist_matches = ["rouge", "notre", "nous", "nos", "ensemble", "communisme", "marx", "patrie"]
+    sardine_matches = ["sardine", "poisson", "mer", "vitamines", "thon", "maquereau"]
 
     sardine = gen_matchers.(String.downcase(message.content), sardine_matches)
     communist = gen_matchers.(String.downcase(message.content), communist_matches)

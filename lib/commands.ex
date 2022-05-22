@@ -1,6 +1,5 @@
 defmodule Satanut.Commands do
   use Alchemy.Cogs
-  alias Alchemy.Embed
 
   Cogs.def sardine do
     Cogs.say("Sardine")
