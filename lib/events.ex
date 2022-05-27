@@ -45,9 +45,9 @@ defmodule Satanut.Events do
     communist_matches = ["rouge", "notre", "nous", "nos", "ensemble", "communisme", "marx", "patrie"]
     el_psy_congroo_matches = ["chaos", "phonewave", "micro-onde"]
 
-    sardine = any_in.(String.downcase(message.content), sardine_matches)
-    communist = any_in.(String.downcase(message.content), communist_matches)
-    el_psy_congroo = any_in.(String.downcase(message.content), el_psy_congroo_matches)
+    sardine = any_in.(downcased, sardine_matches)
+    communist = any_in.(downcased, communist_matches)
+    el_psy_congroo = any_in.(downcased, el_psy_congroo_matches)
 
     matches = [
       {sardine, fn -> reply(:sardine, message) end},
