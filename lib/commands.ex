@@ -45,11 +45,10 @@ defmodule Satanut.Commands do
 
         Enum.map(roles, &Client.remove_role(guild_id, user_id, &1))
         Client.add_role(guild_id, user_id, stake_role_id)
-        Cogs.say("Et hop! Tes droits humains ont disparus!")
-        Process.sleep(40000)
+        Cogs.say("Et hop! <@" <> user_id <> "> tes droits humains ont disparus!")
+        Process.sleep(10000)
         Client.remove_role(guild_id, user_id, stake_role_id)
         Enum.map(roles, &Client.add_role(guild_id, user_id, &1))
-        Cogs.say("Abracadabra et te revoila!")
 
       _ -> nil
     end
