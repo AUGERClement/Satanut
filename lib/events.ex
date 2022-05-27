@@ -23,33 +23,46 @@ defmodule Satanut.Events do
     Cogs.say(Enum.random(gifs))
   end
 
+  def reply(:el_psy_congroo, message) do
+    gifs = [
+      "https://tenor.com/view/okabe-rintaro-gif-18515625",
+    ]
 
-  def callback({value, call}) do
-    case value do
-      true -> call.()
-      _ -> nil
-    end
+    Cogs.say(Enum.random(gifs))
+  end
+
+  def reply(keyword, message) do
+    embed = Embed.from_assets(Atom.to_string(keyword), title: "Sardina pilchardus")
+    Cogs.say("", embed: embed)
   end
 
   def define_reply(message) do
-    gen_matcher = fn (str, keyword) -> str =~ keyword end
-    gen_matchers = fn (str, keywords) -> true in Enum.map(keywords, &gen_matcher.(str, &1)) end
+    is_in = fn (str, keyword) -> str =~ keyword end
+    any_in = fn (str, keywords) -> true in Enum.map(keywords, &is_in.(str, &1)) end
+    downcased = String.downcase(message.content)
 
-    communist_matches = ["rouge", "notre", "nous", "nos", "ensemble", "communisme", "marx", "patrie"]
     sardine_matches = ["sardine", "poisson", "mer", "vitamines", "thon", "maquereau"]
+    communist_matches = ["rouge", "notre", "nous", "nos", "ensemble", "communisme", "marx", "patrie"]
+    el_psy_congroo_matches = ["chaos", "phone<ave", "micro-onde"]
 
-    sardine = gen_matchers.(String.downcase(message.content), sardine_matches)
-    communist = gen_matchers.(String.downcase(message.content), communist_matches)
+    sardine = any_in.(String.downcase(message.content), sardine_matches)
+    communist = any_in.(String.downcase(message.content), communist_matches)
+    el_psy_congroo = any_in.(String.downcase(message.content), el_psy_congroo_matches)
 
-    eval = [
+    matches = [
       {sardine, fn -> reply(:sardine, message) end},
-      {communist, fn -> reply(:communist, message) end}
+      {communist, fn -> reply(:communist, message) end},
+      {el_psy_congroo, fn -> reply(:el_psy_congroo, message) end}
     ]
 
-    case message.author.bot do
-      false -> Enum.find(eval, &callback(&1))
-      _ -> nil
-    end
+    Enum.map(matches, fn {atom, keywords} -> if any_in.(downcased, keywords) do atom end end)
+    |> IO.inspect
+    |> Enum.find(&Function.identity(&1)) #First non nil val of list or nil
+    |> IO.inspect
+    |> case do
+        nil -> nil
+        match -> reply(match, message)
+      end
   end
 
 end

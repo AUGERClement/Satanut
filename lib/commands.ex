@@ -8,4 +8,9 @@ defmodule Satanut.Commands do
   Cogs.def test do
     Cogs.say("Test")
   end
+
+  Cogs.def setroleid(role) do
+    Cogs.say("Le rôle bûcher a été set à : " <> role <> ".")
+
+  end
 end
