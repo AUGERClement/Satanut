@@ -41,10 +41,6 @@ defmodule Satanut.Events do
     any_in = fn (str, keywords) -> true in Enum.map(keywords, &is_in.(str, &1)) end
     downcased = String.downcase(message.content)
 
-    sardine = any_in.(downcased, sardine_matches)
-    communist = any_in.(downcased, communist_matches)
-    el_psy_congroo = any_in.(downcased, el_psy_congroo_matches)
-
     matches = [
       {:sardine,  ["sardine", "poisson", "mer", "vitamines", "thon", "maquereau"]},
       {:communist, ["rouge", "notre", "nous", "nos", "ensemble", "communisme", "marx", "patrie"]},
