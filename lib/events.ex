@@ -41,18 +41,14 @@ defmodule Satanut.Events do
     any_in = fn (str, keywords) -> true in Enum.map(keywords, &is_in.(str, &1)) end
     downcased = String.downcase(message.content)
 
-    sardine_matches = ["sardine", "poisson", "mer", "vitamines", "thon", "maquereau"]
-    communist_matches = ["rouge", "notre", "nous", "nos", "ensemble", "communisme", "marx", "patrie"]
-    el_psy_congroo_matches = ["chaos", "phonewave", "micro-onde"]
-
     sardine = any_in.(downcased, sardine_matches)
     communist = any_in.(downcased, communist_matches)
     el_psy_congroo = any_in.(downcased, el_psy_congroo_matches)
 
     matches = [
-      {sardine, fn -> reply(:sardine, message) end},
-      {communist, fn -> reply(:communist, message) end},
-      {el_psy_congroo, fn -> reply(:el_psy_congroo, message) end}
+      {:sardine,  ["sardine", "poisson", "mer", "vitamines", "thon", "maquereau"]},
+      {:communist, ["rouge", "notre", "nous", "nos", "ensemble", "communisme", "marx", "patrie"]},
+      {:el_psy_congroo, ["chaos", "phonewave", "micro-onde"]}
     ]
 
     Enum.map(matches, fn {atom, keywords} -> if any_in.(downcased, keywords) do atom end end)
