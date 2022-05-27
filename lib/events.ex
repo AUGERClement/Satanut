@@ -43,7 +43,7 @@ defmodule Satanut.Events do
 
     sardine_matches = ["sardine", "poisson", "mer", "vitamines", "thon", "maquereau"]
     communist_matches = ["rouge", "notre", "nous", "nos", "ensemble", "communisme", "marx", "patrie"]
-    el_psy_congroo_matches = ["chaos", "phone<ave", "micro-onde"]
+    el_psy_congroo_matches = ["chaos", "phonewave", "micro-onde"]
 
     sardine = any_in.(String.downcase(message.content), sardine_matches)
     communist = any_in.(String.downcase(message.content), communist_matches)
