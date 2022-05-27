@@ -30,6 +30,13 @@ defmodule Satanut.Commands do
   Cogs.def sacrifice(user) do
     user_id = user |> String.replace(~r/[^\d]/, "")
     stake_role_id = Application.get_env(:satanut, :stake_role_id)
+    user_tag = "<@" <> user_id <> ">"
+
+    answer_list = [
+      "Et hop! #{user_tag} tes droits humains ont disparus !",
+      "Tiens, félicitations #{user_tag}, un ticket pour le bucher express, embarquement immédiat ...",
+      "Pas de chance, #{user_tag}, tu retournes au bûcher."
+    ]
 
     Cogs.guild_id()
     |> case do
@@ -45,7 +52,7 @@ defmodule Satanut.Commands do
 
         Enum.map(roles, &Client.remove_role(guild_id, user_id, &1))
         Client.add_role(guild_id, user_id, stake_role_id)
-        Cogs.say("Et hop! <@" <> user_id <> "> tes droits humains ont disparus!")
+        Cogs.say(Enum.random(answer_list))
         Process.sleep(10000)
         Client.remove_role(guild_id, user_id, stake_role_id)
         Enum.map(roles, &Client.add_role(guild_id, user_id, &1))
