@@ -14,7 +14,6 @@ defmodule Satanut.Commands do
     Cogs.say("Tu oses défier le jugement du grand Satanut ?")
 
     Cogs.member()
-    |> IO.inspect()
     |> case do
       {:ok, member} ->
         case Enum.random([true, false]) do
@@ -41,14 +40,12 @@ defmodule Satanut.Commands do
     Cogs.guild_id()
     |> case do
       {:ok, guild_id} ->
-        roles = Client.get_member(guild_id, user_id)
+        roles =
+          Client.get_member(guild_id, user_id)
           |> case do
             {:ok, guild_member} -> guild_member.roles
             _ -> []
           end
-
-        IO.inspect("Guild id : " <> guild_id)
-        IO.inspect("User id : " <> user_id)
 
         Enum.map(roles, &Client.remove_role(guild_id, user_id, &1))
         Client.add_role(guild_id, user_id, stake_role_id)
@@ -57,7 +54,37 @@ defmodule Satanut.Commands do
         Client.remove_role(guild_id, user_id, stake_role_id)
         Enum.map(roles, &Client.add_role(guild_id, user_id, &1))
 
-      _ -> nil
+      _ ->
+        nil
     end
+  end
+
+  Cogs.def caprice() do
+    random_count = Enum.random(5..15)
+    Cogs.say("Satanut va purifier le discord.")
+
+    Cogs.guild_id()
+    |> case do
+      {:ok, guild_id} ->
+        Client.get_member_list(guild_id, limit: 200)
+        |> case do
+          {:ok, members} ->
+            members
+            |> Enum.filter(fn member -> !member.user.bot end)
+            |> Enum.shuffle()
+            |> Enum.take(random_count)
+            |> Enum.map(fn member ->
+              sacrifice(message, member.user.id)
+            end)
+
+          _ ->
+            nil
+        end
+
+      _ ->
+        nil
+    end
+
+    Cogs.say("Le discord est désormais pur.")
   end
 end
